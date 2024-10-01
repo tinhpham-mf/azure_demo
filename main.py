@@ -22,23 +22,17 @@ app.add_middleware(
 
 
 DOCUMENT_INTELLIGENCE_ENDPOINT = os.getenv("DOCUMENT_INTELLIGENCE_ENDPOINT")
-DOCUMENT_INTELLIGENCE_KEY = os.getenv("DOCUMENT_INTELLIGENCE_KEY")
 TRANSLATOR_ENDPOINT = os.getenv("TRANSLATOR_ENDPOINT")
-TRANSLATOR_KEY = os.getenv("TRANSLATOR_KEY")
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 OPENAI_ENDPOINT = os.getenv("OPENAI_ENDPOINT")
 print(f"Document Intelligence Endpoint: {DOCUMENT_INTELLIGENCE_ENDPOINT}")
 print(f"Translator Endpoint: {TRANSLATOR_ENDPOINT}")
 print(f"OpenAI Endpoint: {OPENAI_ENDPOINT}")
-print(f"OpenAI API Key: {OPENAI_API_KEY}")
-print(f"Document Intelligence Key: {DOCUMENT_INTELLIGENCE_KEY}")
-print(f"Translator Key: {TRANSLATOR_KEY}")
 # Cấu hình Azure OpenAI
 default_credential = DefaultAzureCredential()
 
 # Cấu hình Azure OpenAI với Azure AD
 client = AzureOpenAI(
-    azure_endpoint = os.getenv("AZURE_OPENAI_ENDPOINT"),
+    azure_endpoint = os.getenv("OPENAI_ENDPOINT"),
     api_version = "2023-05-15",
     azure_ad_token = default_credential.get_token("https://cognitiveservices.azure.com/.default").token
 )
