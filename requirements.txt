@@ -1,2 +1,6 @@
 fastapi
 uvicorn
+azure-ai-formrecognizer 
+azure-ai-translation-document 
+openai 
+azure-identity

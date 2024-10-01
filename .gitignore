@@ -1,2 +1,6 @@
 /backend/venv
 /frontend/node_modules
+/venv
+__pycache__
+*.__pycache__   # Ignore all .pyc files
+*.pyc
