@@ -34,12 +34,14 @@ print(f"OpenAI API Key: {OPENAI_API_KEY}")
 print(f"Document Intelligence Key: {DOCUMENT_INTELLIGENCE_KEY}")
 print(f"Translator Key: {TRANSLATOR_KEY}")
 # Cấu hình Azure OpenAI
-client = AzureOpenAI(
-    api_key = OPENAI_API_KEY,  
-    api_version = "2023-05-15",
-    azure_endpoint = OPENAI_ENDPOINT
-)
+default_credential = DefaultAzureCredential()
 
+# Cấu hình Azure OpenAI với Azure AD
+client = AzureOpenAI(
+    azure_endpoint = os.getenv("AZURE_OPENAI_ENDPOINT"),
+    api_version = "2023-05-15",
+    azure_ad_token = default_credential.get_token("https://cognitiveservices.azure.com/.default").token
+)
 @app.get("/")
 def read_root():
     return {"message": "Welcome to the FastAPI backend!"}
@@ -70,7 +72,7 @@ def test_document_intelligence():
         # Create a DocumentAnalysisClient
         client = DocumentAnalysisClient(
             endpoint=DOCUMENT_INTELLIGENCE_ENDPOINT,
-            credential=AzureKeyCredential(DOCUMENT_INTELLIGENCE_KEY)
+            credential=default_credential
         )
         # Dummy call to check connection (e.g., list models)
         models = client.list_models()
@@ -85,7 +87,7 @@ def test_translator():
         # Create a DocumentTranslationClient
         client = DocumentTranslationClient(
             endpoint=TRANSLATOR_ENDPOINT,
-            credential=AzureKeyCredential(TRANSLATOR_KEY)
+            credential=default_credential
         )
         # Dummy call to check connection (e.g., list glossary)
         operations = client.list_translation_statuses()
