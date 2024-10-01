@@ -27,7 +27,12 @@ TRANSLATOR_ENDPOINT = os.getenv("TRANSLATOR_ENDPOINT")
 TRANSLATOR_KEY = os.getenv("TRANSLATOR_KEY")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 OPENAI_ENDPOINT = os.getenv("OPENAI_ENDPOINT")
-
+print(f"Document Intelligence Endpoint: {DOCUMENT_INTELLIGENCE_ENDPOINT}")
+print(f"Translator Endpoint: {TRANSLATOR_ENDPOINT}")
+print(f"OpenAI Endpoint: {OPENAI_ENDPOINT}")
+print(f"OpenAI API Key: {OPENAI_API_KEY}")
+print(f"Document Intelligence Key: {DOCUMENT_INTELLIGENCE_KEY}")
+print(f"Translator Key: {TRANSLATOR_KEY}")
 # Cấu hình Azure OpenAI
 client = AzureOpenAI(
     api_key = OPENAI_API_KEY,  
