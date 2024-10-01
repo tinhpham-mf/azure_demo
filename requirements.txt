@@ -4,3 +4,4 @@ azure-ai-formrecognizer
 azure-ai-translation-document 
 openai 
 azure-identity
+pymysql

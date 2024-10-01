@@ -8,7 +8,7 @@ from azure.identity import DefaultAzureCredential
 import os
 import random
 from pathlib import Path
-
+import pymysql
 app = FastAPI()
 
 # Cấu hình CORS
@@ -21,6 +21,9 @@ app.add_middleware(
 )
 
 
+DBHOST = os.getenv("DBHOST")
+DBUSER = os.getenv("DBUSER")
+DBPASS = os.getenv("DBPASS")
 DOCUMENT_INTELLIGENCE_ENDPOINT = os.getenv("DOCUMENT_INTELLIGENCE_ENDPOINT")
 TRANSLATOR_ENDPOINT = os.getenv("TRANSLATOR_ENDPOINT")
 OPENAI_ENDPOINT = os.getenv("OPENAI_ENDPOINT")
@@ -102,3 +105,18 @@ async def test_connection():
         return {"message": "Success", "response": response.choices[0].message.content}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error: {str(e)}")
+    
+@app.get("/test-mysql")
+async def test_mysql():
+    try:
+        connection = pymysql.connect(
+            host=DBHOST,
+            user=DBUSER,
+            password=DBPASS,
+            port=3306,
+            database="pymysqldbnonprod"
+        )
+        connection.close()
+        return {"message": "MySQL connection successful!"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
